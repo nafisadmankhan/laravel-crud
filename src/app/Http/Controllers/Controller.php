@@ -9,14 +9,12 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    // Step 1: Return the Google OAuth URL to the frontend
     public function redirectUrl()
     {
         $url = Socialite::driver('google')->stateless()->redirect()->getTargetUrl();
         return response()->json(['url' => $url]);
     }
 
-    // Step 2: Handle Google's callback, create/find user, return token
     public function handleCallback()
     {
         try {
@@ -34,10 +32,8 @@ class GoogleController extends Controller
             ]
         );
 
-        // Using Laravel Sanctum for token generation
         $token = $user->createToken('google-auth-token')->plainTextToken;
 
-        // Redirect back to frontend with token
         return redirect(env('FRONTEND_URL') . '/auth/callback?token=' . $token);
     }
 }

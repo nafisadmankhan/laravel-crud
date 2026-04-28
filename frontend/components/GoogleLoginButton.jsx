@@ -2,7 +2,7 @@
 
 export default function GoogleLoginButton() {
   const handleGoogleLogin = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/google/url`);
+    const res = await fetch('http://localhost:9000/api/auth/google/url');
     const { url } = await res.json();
     window.location.href = url;
   };
